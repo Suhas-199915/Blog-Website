@@ -1,26 +1,17 @@
-"""
-URL configuration for blogClone project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from blogApp import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('blogApp.urls')),
-    path('accounts/login', views.myLoginView.as_view(), name ='login'),
-    path('accounts/logout', views.myLogoutView.as_view(), name='logout')
+    path('', views.postListView.as_view(), name = 'postList'),
+    path('about/', views.aboutView.as_view(), name = 'about'),
+    path('post/<int:pk>/', views.postDetailView.as_view(), name = 'postDetail'),
+    path('post/new/', views.createPostView.as_view(), name = 'createPost'),
+    path('path/<int:pk>/edit/', views.updatePostView.as_view(), name = 'updatePost'),
+    path('path/<int:pk>/delete/', views.deletePostView.as_view(), name = 'deletePost'),
+    path('post/drafts/', views.draftListView.as_view(), name = 'draftListPost'),
+    path('post/<int:pk>/comments/', views.addCommentToPost, name = 'addCommentToPost'),
+    path('comment/<int:pk>/approve/', views.commentApprove, name = 'commentApprove'),
+    path('comment/<int:pk>/remove/', views.commentDelete, name='commentDelete'),
+    path('post/<int:pk>/publish/', views.postPublish, name = 'postPublish'),
+
 ]
